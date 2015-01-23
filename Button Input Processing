@@ -1,17 +1,43 @@
 import processing.serial.*;
+Serial myPort;
 
 
 
 void setup(){
   size(displayWidth, displayHeight);
+  size(640, 360);
+  myPort = new Serial(this, Serial.list()[5], 9600);
+  myPort.bufferUntil('\n');
   
 }
 
 void draw(){
-  
-  if(timer_start){
-  print("Timer");
+
+  if(myPort.read() == 'A'){
+  //news
+  background(0);
+  }
+  if(myPort.read() == 'B'){
+  //timed shower
+  background(0);
+  }
+  if(myPort.read() == 'C'){
+  //2048
+  background(0);
+  }
+  if(myPort.read() == 'D'){
+  //tasklist
+  background(0);
+  }
+  if(myPort.read() == 'E'){
+  //main menu
+  background(0);
   }
  
   
 }
+
+//void serialEvent(Serial p){
+  //String val = p.readString();
+  //println(val);
+//}
