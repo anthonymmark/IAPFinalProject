@@ -4,17 +4,6 @@ const int button3 = 4;
 const int button4 = 5;
 const int button5 = 6;
 
-
-// variables will change:
-int button1State = 0;         // variable for reading the pushbutton status
-int button2State = 0;
-int button3State = 0;
-int button4State = 0;
-int button5State = 0;
-
-char timer;
-
-
 void setup() {
   Serial.begin(9600); 
   pinMode(button1, INPUT);  
@@ -28,13 +17,22 @@ void loop(){
   // read the state of the button1 value:
   
   button1State = digitalRead(button1);
-  //Serial.println(button1State);
-  if(button1State == HIGH){
-    Serial.println('T');
-  }
-    
+  button2State = digitalRead(button1);
+  button3State = digitalRead(button1);
+  button4State = digitalRead(button1);
+  button5State = digitalRead(button1);
   // check if the pushbutton is pressed.
   // if it is, the buttonState is HIGH:
-  
+  if(button1State == HIGH){
+    Serial.println('A');
+  if(button2State == HIGH){
+    Serial.println('B');
+  if(button3State == HIGH){
+    Serial.println('C');
+  if(button4State == HIGH){
+    Serial.println('D');
+  if(button5State == HIGH){
+    Serial.println('E');
+  }
 
 }
