@@ -1,0 +1,17 @@
+import processing.serial.*;
+
+
+
+void setup(){
+  size(displayWidth, displayHeight);
+  
+}
+
+void draw(){
+  
+  if(timer_start){
+  print("Timer");
+  }
+ 
+  
+}
