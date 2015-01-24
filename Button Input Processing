@@ -6,6 +6,8 @@ PFont font;
 int displayWidth = 640;
 int displayHeight = 360;
 
+XML xml;
+
 void setup(){
   size(displayWidth, displayHeight);
   //myPort = new Serial(this, Serial.list()[5], 9600);
@@ -15,21 +17,27 @@ void setup(){
   font = createFont("Arial",16,true);
 
   //Loads RSS feed and gets title of each item
-  XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml");
-  XML[] children = rss.getChildren("channel/item/title");
-  
-//  for (int i = 0; i < title.length; i++) {
+  XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml");
+  //XML[] children rss.getChildren("channel/item/title");
+  XML[] childrentitle = rss.getChildren("channel/item/title");
+  XML[] childrendescrip = rss.getChildren("channel/item/description");
 
+
+  for (int i = 0; i < childrentitle.length; i++) {
+    String titlewtag = childrentitle[i].toString();
+    int lengthh = titlewtag.length();
+    String title = titlewtag.substring(7, lengthh-8);
+    String descriptionwtag = childrendescrip[i].toString();
+    int lengthhh = descriptionwtag.length();
+    String description = descriptionwtag.substring(13, lengthhh-14);
+    println(title + ", " + description);
   }
 }
 
 
 void draw(){
-  //title.display();
-  textFont(font,36);
 
 
-  
 /**  
   if(myPort.read() == 'A'){
   //news
@@ -49,6 +57,7 @@ void draw(){
   }
   if(myPort.read() == 'E'){
   //main menu
+  textFont(font,36);
   background(255,255,255);
   noFill();
   rect(0,0,displayWidth/2, displayHeight/2);
