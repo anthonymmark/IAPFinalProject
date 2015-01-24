@@ -14,26 +14,22 @@ void setup(){
 //begin newsfeed
   font = createFont("Arial",16,true);
 
-  // Loads RSS feed and gets title and image of each item
-  //XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml");
-  //XML[] title = rss.getChildren("channel/item/title");
+  //Loads RSS feed and gets title of each item
+  XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml");
+  XML[] children = rss.getChildren("channel/item/title");
+  
+//  for (int i = 0; i < title.length; i++) {
+
   }
+}
 
 
 void draw(){
   //title.display();
-  
   textFont(font,36);
 
+
   
-  rect(0,0,displayWidth/2, displayHeight/2);
-  rect(displayWidth/2, displayHeight/2,displayWidth/2, displayHeight/2);
-  rect(displayWidth/2,0,displayWidth/2, displayHeight/2);
-  rect(0,displayHeight/2,displayWidth/2, displayHeight/2);
-  rect(0,0,100,50);
-  fill(209,44,44);
-  text("hello",displayWidth/2, displayHeight/2);
-  //help the fill works for rectangles too??!!!
 /**  
   if(myPort.read() == 'A'){
   //news
@@ -53,7 +49,20 @@ void draw(){
   }
   if(myPort.read() == 'E'){
   //main menu
-  background(0);
+  background(255,255,255);
+  noFill();
+  rect(0,0,displayWidth/2, displayHeight/2);
+  rect(displayWidth/2, displayHeight/2,displayWidth/2, displayHeight/2);
+  rect(displayWidth/2,0,displayWidth/2, displayHeight/2);
+  rect(0,displayHeight/2,displayWidth/2, displayHeight/2);
+  rect(0,0,115,30);
+  
+  fill(0);
+  text("Games",displayWidth/6, displayHeight/4);
+  text("Life",2*displayWidth/3, displayHeight/4);
+  text("News",displayWidth/6, 3*displayHeight/4);
+  text("Timer",2*displayWidth/3, 3*displayHeight/4);
+  text("Power", 10,27);
   }
  **/
   
