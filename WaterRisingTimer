@@ -1,0 +1,60 @@
+import processing.serial.*;
+
+float shower_time; //the user will input a time in minutes as their goal time for the shower
+float increment;
+float time_elapsed;
+//shower_time and time_elapsed will be in minutes for the final product, 
+//for demonstration purposes the times will be in seconds
+float time_increment;
+float initial_second;
+float initial_minute;
+float current_second;
+float current_minute;
+String time;
+int water_color;
+
+void setup(){
+  shower_time = 10;
+  size(displayWidth, displayHeight);
+  initial_second = second();
+  initial_minute = minute();
+}
+
+void draw(){
+  background(255);
+  
+  waterRising(shower_time);
+  displayTime(initial_second, initial_minute);
+  
+  if(current_second < (shower_time - 1)){
+  water_color = #3BC3F2; //blue
+    }
+  else if(current_second > (shower_time - 1)){
+    water_color = #FA2100; //red
+  }
+    
+  fill(water_color);
+  rect(0, displayHeight, displayWidth, -time_increment);
+  
+  fill(#000000);
+  textSize(32);
+  text(time, 660, 300);
+  
+}
+
+void waterRising(float shower_time){
+  
+  increment = displayHeight/shower_time;
+  time_elapsed = millis();
+  time_increment = (time_elapsed*increment)/1000;
+  
+  }
+  
+void displayTime(float initial_second, float initial_minute){
+  
+  current_second = second() - initial_second;
+  current_minute = minute() - initial_minute;
+  time = (int)current_minute + ":" + (int)current_second;
+  
+}
+  
