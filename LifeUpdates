@@ -1,5 +1,8 @@
 import processing.serial.*;
 
+// Hardcode a few updates. 
+// currently trying to figure out how to interface with google calendar
+
 String task3 = "Test Thursday at 7:30pm";
 String task1 = "Practice Today at 5:00pm";
 String task2 = "UROP meeting tomorrow at 2:00pm";
