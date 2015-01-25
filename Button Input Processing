@@ -2,34 +2,38 @@ import processing.serial.*;
 Serial myPort;
 
 PFont font;
-int displayWidth = 640;
-int displayHeight = 360;
 int numStories;
 
 XML xml;
 //String[] stories;
 String allStories;
 boolean mainMenu = true;
+String[] cmd = {"processing-java", "/WaterRisingTimer"};
+
+//for hard-coded task list
+String task3 = "Test Thursday at 7:30pm";
+String task1 = "Practice Today at 5:00pm";
+String task2 = "UROP meeting tomorrow at 2:00pm";
 
 
 void setup(){
-  println(mainMenu);
+ //starting out stuff, connecting with serial
   size(displayWidth, displayHeight);
   //myPort = new Serial(this, Serial.list()[5], 9600);
   //myPort.bufferUntil('\n');
   
-//begin newsfeed
+ //begin newsfeed work
   font = createFont("Arial",16,true);
   
+  //sets number of stories
   numStories = 5;
 
-  //Loads RSS feed and gets title of each item
+  //Loads RSS feed and gets title + description of each item
   XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml");
-  //XML[] children rss.getChildren("channel/item/title");
   XML[] childrentitle = rss.getChildren("channel/item/title");
   XML[] childrendescrip = rss.getChildren("channel/item/description");
 
-  //stories = new String[numStories];
+  //cycle through specified number of stories and create one string of title, descrip, line breaks
   allStories = "";
   for (int i = 0; i < numStories; i++) {
     String titlewtag = childrentitle[i].toString();
@@ -54,16 +58,15 @@ void draw(){
   background(255,255,255);
   fill(0);
   text(allStories, 0, 0,displayWidth, displayHeight);
-  //for (int i = 0; i<numStories; i++){
-  //  text(stories[i], 0, i*80, displayWidth, displayHeight);
-  //}
-
   }
+  
   if(myPort.read() == 'B'){
   //timed shower
   mainMenu = false;
-  background(0);
+  //this may or may not work, figure out parameters for above
+  exec(cmd);
   }
+  
   if(myPort.read() == 'C'){
   //2048
   mainMenu = false;
@@ -72,7 +75,12 @@ void draw(){
   if(myPort.read() == 'D'){
   //tasklist
   mainMenu = false;
-  background(0);
+  background(255);
+  fill(0);
+  textSize(56);
+  text(task1,150,300);
+  text(task2,150,375);
+  text(task3,150,450);
   }
   if(myPort.read() == 'E' && mainMenu = false){
   //main menu
@@ -100,8 +108,3 @@ void draw(){
  **/
   
 }
-
-//void serialEvent(Serial p){
-  //String val = p.readString();
-  //println(val);
-//}
