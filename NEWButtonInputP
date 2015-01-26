@@ -1,3 +1,4 @@
+// RUN USING SKETCH > PRESENT, IT'LL LOOK NICER ON YOUR CURTAIN :)
 import processing.serial.*;
 Serial myPort;
 PFont font;
