@@ -77,6 +77,21 @@ String time;
 int water_color;
 
 void draw(){
+    //start in main menu
+    textFont(font,36);
+    background(255,255,255);
+    noFill();
+    rect(0,0,displayWidth/2, displayHeight/2);
+    rect(displayWidth/2, displayHeight/2,displayWidth/2, displayHeight/2);
+    rect(displayWidth/2,0,displayWidth/2, displayHeight/2);
+    rect(0,displayHeight/2,displayWidth/2, displayHeight/2);
+    rect(0,0,115,30);
+    fill(0);
+    text("Games",displayWidth/6, displayHeight/4);
+    text("Life",2*displayWidth/3, displayHeight/4);
+    text("News",displayWidth/6, 3*displayHeight/4);
+    text("Timer",2*displayWidth/3, 3*displayHeight/4);
+    text("Power", 10,27);
   
 ///**  
   if(myPort.read() == 'A'){
