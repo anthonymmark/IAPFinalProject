@@ -117,5 +117,19 @@ void draw(){
     background(0);
   
   }
+  for val
+    XML xml = loadXML("https://www.google.com/calendar/feeds/tdks84265utdncqj8a8i3bvvmk%40group.calendar.google.com/public/basic");
+  
+  XML[] childrenTitle = xml.getChildren("entry/title");
+  XML[] childrenSummary = xml.getChildren("entry/summary");
+  XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml");
+  XML[] childrenA = rss.getChildren("channel/item");
+  
+  for (int i = 0; i < 1; i++) {
+    String id = childrenTitle[i].toString();
+    String id2 = childrenSummary[i].toString();
+    println(id);
+    println(id2);
+    
 **/
 }
