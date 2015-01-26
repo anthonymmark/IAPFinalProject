@@ -5,15 +5,13 @@ import processing.serial.*;
 Serial myPort;
 PFont font;
 int numStories;
+int numEvents;
 XML xml;
 //String[] stories;
 String allStories;
+String allEvents;
 boolean mainMenu = true;
-String[] cmd = {"C::\\Users\\Andrea Meister\\processing-2.2.1-windows64\\processing-2.2.1", "\\ShowerTimer.pde"};
-//for hard-coded task list
-String task3 = "Test Thursday at 7:30pm";
-String task1 = "Practice Today at 5:00pm";
-String task2 = "UROP meeting tomorrow at 2:00pm";
+
 
 void setup(){
   //starting out stuff, connecting with serial
@@ -24,6 +22,7 @@ void setup(){
   font = createFont("Arial",16,true);
   //sets number of stories
   numStories = 5;
+  numEvents = 3
   //Loads RSS feed and gets title + description of each item
   XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml");
   XML[] childrentitle = rss.getChildren("channel/item/title");
@@ -50,16 +49,17 @@ void setup(){
   XML[] childrenTitle = xml.getChildren("entry/title");
   XML[] childrenSummary = xml.getChildren("entry/summary");
   
-  for (int i = 0; i < 2; i++) {
+  allEvents = "";
+  for (int i = 0; i < numEvents; i++) {
     String titlewtag = childrenTitle[i].toString();
     String summarywtag = childrenSummary[i].toString();
     int lengthh = titlewtag.length();
-    String title = titlewtag.substring(19, lengthh-8);
+    String title = titlewtag.substring(24, lengthh-8);
     int lengthhh = summarywtag.length();
-    String summary = summarywtag.substring(21, lengthhh-66);
-    println(title);
-    println(summary);
+    String summary = summarywtag.substring(27, lengthhh-66);
+    allEvents = allEvents + title + "\n" + summary + "\n";
   }
+  println(allEvents);
 }
 
 //for Timer
@@ -102,12 +102,10 @@ void draw(){
   if(myPort.read() == 'D'){
     //tasklist
     mainMenu = false;
-    background(255);
+    textFont(font,18);
+    background(255,255,255);
     fill(0);
-    textSize(56);
-    text(task1,150,300);
-    text(task2,150,375);
-    text(task3,150,450);
+    text(allEvents, 0, 0,displayWidth, displayHeight);
   }
   if(myPort.read() == 'E' && mainMenu == false){
     //main menu
