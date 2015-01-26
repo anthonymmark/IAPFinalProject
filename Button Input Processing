@@ -1,4 +1,3 @@
-//auto fullscreen
 boolean sketchFullScreen() {
   return true;
 }
@@ -45,6 +44,22 @@ void setup(){
   size(displayWidth, displayHeight);
   initial_second = second();
   initial_minute = minute();
+  
+  XML xml = loadXML("https://www.google.com/calendar/feeds/tdks84265utdncqj8a8i3bvvmk%40group.calendar.google.com/public/basic");
+  
+  XML[] childrenTitle = xml.getChildren("entry/title");
+  XML[] childrenSummary = xml.getChildren("entry/summary");
+  
+  for (int i = 0; i < 2; i++) {
+    String titlewtag = childrenTitle[i].toString();
+    String summarywtag = childrenSummary[i].toString();
+    int lengthh = titlewtag.length();
+    String title = titlewtag.substring(19, lengthh-8);
+    int lengthhh = summarywtag.length();
+    String summary = summarywtag.substring(21, lengthhh-66);
+    println(title);
+    println(summary);
+  }
 }
 
 //for Timer
@@ -62,7 +77,6 @@ String time;
 int water_color;
 
 void draw(){
-  timer();
   
   
 /**  if(myPort.read() == 'A'){
@@ -117,19 +131,5 @@ void draw(){
     background(0);
   
   }
-  for val
-    XML xml = loadXML("https://www.google.com/calendar/feeds/tdks84265utdncqj8a8i3bvvmk%40group.calendar.google.com/public/basic");
-  
-  XML[] childrenTitle = xml.getChildren("entry/title");
-  XML[] childrenSummary = xml.getChildren("entry/summary");
-  XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml");
-  XML[] childrenA = rss.getChildren("channel/item");
-  
-  for (int i = 0; i < 1; i++) {
-    String id = childrenTitle[i].toString();
-    String id2 = childrenSummary[i].toString();
-    println(id);
-    println(id2);
-    
 **/
 }
