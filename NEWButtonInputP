@@ -7,7 +7,6 @@ XML xml;
 //String[] stories;
 String allStories;
 boolean mainMenu = true;
-String[] cmd = {"C::\\Users\\Andrea Meister\\processing-2.2.1-windows64\\processing-2.2.1", "\\ShowerTimer.pde"};
 //for hard-coded task list
 String task3 = "Test Thursday at 7:30pm";
 String task1 = "Practice Today at 5:00pm";
