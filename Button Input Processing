@@ -16,13 +16,13 @@ boolean mainMenu = true;
 void setup(){
   //starting out stuff, connecting with serial
   size(displayWidth, displayHeight);
-  //myPort = new Serial(this, Serial.list()[5], 9600);
-  //myPort.bufferUntil('\n');
+  myPort = new Serial(this, Serial.list()[5], 9600);
+  myPort.bufferUntil('\n');
   //begin newsfeed work
   font = createFont("Arial",16,true);
   //sets number of stories
   numStories = 5;
-  numEvents = 3
+  numEvents = 3;
   //Loads RSS feed and gets title + description of each item
   XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml");
   XML[] childrentitle = rss.getChildren("channel/item/title");
@@ -59,7 +59,7 @@ void setup(){
     String summary = summarywtag.substring(27, lengthhh-66);
     allEvents = allEvents + title + "\n" + summary + "\n";
   }
-  println(allEvents);
+  println(myPort.read());
 }
 
 //for Timer
@@ -78,8 +78,8 @@ int water_color;
 
 void draw(){
   
-  
-/**  if(myPort.read() == 'A'){
+///**  
+  if(myPort.read() == 'A'){
     //news
     mainMenu = false;
     textFont(font,18);
@@ -129,5 +129,5 @@ void draw(){
     background(0);
   
   }
-**/
+//**/
 }
