@@ -205,4 +205,28 @@ void displayTime(float initial_second, float initial_minute){
   current_minute = minute() - initial_minute;
   time = (int)current_minute + ":" + (int)current_second;
   
-}  
+}
+/**
+void keyPressed()
+{
+ //1-main menu, 2-timer, 3-news, 4-updates, 5- game
+  switch (key) {
+    case 'a':
+      currentScreen = 1;
+      break;
+    case 'b':
+      currentScreen = 2;
+      break; 
+    case 'c':
+      currentScreen = 3;
+      break; 
+    case 'd':
+      currentScreen = 4;
+      break;
+    case 'e':
+      currentScreen = 5;
+      break;     
+    default:  
+      break;
+  }
+} **/
