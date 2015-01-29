@@ -39,8 +39,8 @@ IntList buttonPresses = new IntList();
 void setup(){
   //starting out stuff, connecting with serial
   size(displayWidth, displayHeight);
-  //myPort = new Serial(this, Serial.list()[5], 9600);
-  //myPort.bufferUntil('\n');
+  myPort = new Serial(this, Serial.list()[5], 9600);
+  myPort.bufferUntil('\n');
   //begin newsfeed work
   font = createFont("Arial",16,true);
   boldFont = createFont("Arial-BoldMT",16,true);
@@ -94,7 +94,6 @@ void setup(){
 
 
 void draw(){
-  /**
   if (myPort.read() == 'E') {
     currentScreen = 1;
   }
@@ -110,7 +109,7 @@ void draw(){
   if (myPort.read() == 'D') {
     currentScreen = 4;
   }
-  **/
+
   background(0);
   if (currentScreen == 1) {
     mainMenu = true;
@@ -198,7 +197,7 @@ void displayTime(){
   time = (int)current_minute + ":" + (int)current_second;
   
 }
-
+/**
 void keyPressed()
 {
  //1-main menu, 2-timer, 3-news, 4-updates, 5- game
@@ -221,4 +220,4 @@ void keyPressed()
     default:  
       break;
   }
-}
+}**/
