@@ -1,0 +1,58 @@
+const int button1 = 2;     // the number of the pushbutton pin
+const int button2 = 4;
+const int button3 = 7;
+const int button4 = 8;
+const int button5 = 12;
+
+int button1State;
+int button2State;
+int button3State;
+int button4State;
+int button5State;
+
+int lastButtonPressed = 0;
+
+
+
+
+void setup() {
+  Serial.begin(9600); 
+  pinMode(button1, INPUT);  
+  pinMode(button2, INPUT); 
+  pinMode(button3, INPUT); 
+  pinMode(button4, INPUT); 
+  pinMode(button5, INPUT); 
+}
+
+void loop(){
+  // read the state of the button1 value:
+  button1State = digitalRead(button1);
+  button2State = digitalRead(button2);
+  button3State = digitalRead(button3);
+  button4State = digitalRead(button4);
+  button5State = digitalRead(button5);
+
+  // check if the pushbutton is pressed.
+  // if it is, the buttonState is HIGH:
+  if(button1State == HIGH && lastButtonPressed != 1){
+    lastButtonPressed = 1;
+    Serial.println('A');
+  }
+  if(button2State == HIGH && lastButtonPressed != 2){
+    lastButtonPressed = 2;
+    Serial.println('B');
+  }
+  if(button3State == HIGH && lastButtonPressed != 3){
+    lastButtonPressed = 3;
+    Serial.println('C');
+  }
+  if(button4State == HIGH && lastButtonPressed != 4){
+    lastButtonPressed = 4;
+    Serial.println('D');
+  }
+  if(button5State == HIGH && lastButtonPressed != 5){
+    lastButtonPressed = 5;
+    Serial.println('E');
+  }
+
+}
