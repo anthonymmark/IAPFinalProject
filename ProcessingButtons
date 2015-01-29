@@ -65,21 +65,32 @@ void setup(){
     titles[i] = title;
   }
 
-  
   XML xml = loadXML("https://www.google.com/calendar/feeds/tdks84265utdncqj8a8i3bvvmk%40group.calendar.google.com/public/basic");
-  
+  numEvents = 5;
   XML[] childrenTitle = xml.getChildren("entry/title");
-  XML[] childrenSummary = xml.getChildren("entry/summary");
-  
+  XML[] childrenSummary = xml.getChildren("entry/summary");  
+  if (numEvents > childrenTitle.length) {
+    numEvents = childrenTitle.length;
+  }
   allEvents = "";
   for (int i = 0; i < numEvents; i++) {
     String titlewtag = childrenTitle[i].toString();
     String summarywtag = childrenSummary[i].toString();
-    int lengthh = titlewtag.length();
-    String title = titlewtag.substring(24, lengthh-8);
-    int lengthhh = summarywtag.length();
-    String summary = summarywtag.substring(27, lengthhh-66);
-    allEvents = allEvents + title + "\n" + summary + "\n";
+    int int1 = 0;
+    int int2 = 0;
+    for (int j=0; j<summarywtag.length()-3; j++) {
+      if (summarywtag.substring(j,j+4).equals("When")) {
+        int1 = j+6;
+        println(int1);
+      }
+      if (summarywtag.substring(j,j+4).equals("&amp")) {
+        int2 = j;
+        println(int2);
+      }
+    }
+    String title = titlewtag.substring(19, titlewtag.length()-8);
+    String summary = summarywtag.substring(int1, int2);
+    allEvents = title + "\n" + summary + "\n" + "\n" + allEvents;
   }
   //println(myPort.read());
   
