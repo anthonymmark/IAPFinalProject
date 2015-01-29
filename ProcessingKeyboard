@@ -27,8 +27,8 @@ float current_minute;
 String time;
 int water_color;
 
-Pimage city;
-Pimage home;
+PImage city;
+PImage home;
 
 IntList buttonPresses = new IntList();
 
@@ -210,7 +210,7 @@ void waterRising(float shower_time){
   
   }
   
-void displayTime(loat initial_second, float initial_minute){
+void displayTime(){
   
   current_minute = floor(millis()/60000);
   current_second = (millis()/1000) - current_minute*60;
