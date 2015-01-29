@@ -94,7 +94,7 @@ void setup(){
   }
   //println(myPort.read());
   
-  shower_time = 59;
+  shower_time = 15;
   size(displayWidth, displayHeight);
   initial_second = second();
   initial_minute = minute();
@@ -196,7 +196,7 @@ void waterRising(float shower_time){
   
   increment = height/shower_time;
   time_elapsed = millis();
-  time_increment = (time_elapsed*increment)/1000;
+  time_increment = (time_elapsed*increment)/60000;
   
   }
   
