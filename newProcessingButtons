@@ -1,0 +1,255 @@
+boolean sketchFullScreen() {
+  return true;
+}
+String inString;
+int currentScreen; // 1-main menu, 2-timer, 3-news, 4-updates, 5- game
+import processing.serial.*;
+Serial myPort;
+PFont font;
+PFont boldFont;
+int numStories;
+int numEvents;
+XML xml;
+//String[] stories;
+String allStories;
+String[] titles;
+String[] descriptions;
+String allEvents;
+boolean mainMenu = true;
+
+//for Timer
+float shower_time; //the user will input a time in minutes as their goal time for the shower
+float increment;
+float time_elapsed;
+//shower_time and time_elapsed will be in minutes for the final product, 
+//for demonstration purposes the times will be in seconds
+float time_increment;
+float initial_second;
+float initial_minute;
+float current_second;
+float current_minute;
+String time;
+int water_color;
+
+PImage city;
+PImage home;
+
+IntList buttonPresses = new IntList();
+
+
+void setup(){
+  //starting out stuff, connecting with serial
+  size(displayWidth, displayHeight);
+  println(Serial.list());
+  myPort = new Serial(this, Serial.list()[5], 9600);
+  myPort.bufferUntil('\n');
+  //begin newsfeed work
+  font = createFont("Arial",16,true);
+  boldFont = createFont("Arial-BoldMT",16,true);
+  //sets number of stories
+  numStories = 5;
+  numEvents = 3;
+  titles = new String[numStories];
+  descriptions = new String[numStories];
+  //Loads RSS feed and gets title + description of each item
+  XML rss = loadXML("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml");
+  XML[] childrentitle = rss.getChildren("channel/item/title");
+  XML[] childrendescrip = rss.getChildren("channel/item/description");
+ //cycle through specified number of stories and create one string of title, descrip, line breaks
+  for (int i = 0; i < numStories; i++) {
+    String titlewtag = childrentitle[i].toString();
+    int lengthh = titlewtag.length();
+    String title = titlewtag.substring(7, lengthh-8);
+    String descriptionwtag = childrendescrip[i].toString();
+    int lengthhh = descriptionwtag.length();
+    String description = descriptionwtag.substring(13, lengthhh-14);
+    descriptions[i] = description;
+    titles[i] = title;
+  }
+
+  XML xml = loadXML("https://www.google.com/calendar/feeds/tdks84265utdncqj8a8i3bvvmk%40group.calendar.google.com/public/basic");
+  numEvents = 5;
+  XML[] childrenTitle = xml.getChildren("entry/title");
+  XML[] childrenSummary = xml.getChildren("entry/summary");  
+  if (numEvents > childrenTitle.length) {
+    numEvents = childrenTitle.length;
+  }
+  allEvents = "";
+  for (int i = 0; i < numEvents; i++) {
+    String titlewtag = childrenTitle[i].toString();
+    String summarywtag = childrenSummary[i].toString();
+    int int1 = 0;
+    int int2 = 0;
+    for (int j=0; j<summarywtag.length()-3; j++) {
+      if (summarywtag.substring(j,j+4).equals("When")) {
+        int1 = j+6;
+        //println(int1);
+      }
+      if (summarywtag.substring(j,j+4).equals("&amp")) {
+        int2 = j;
+        //println(int2);
+      }
+    }
+    String title = titlewtag.substring(19, titlewtag.length()-8);
+    String summary = summarywtag.substring(int1, int2);
+    allEvents = title + "\n" + summary + "\n" + "\n" + allEvents;
+  }
+  //println(myPort.read());
+  
+  shower_time = 59;
+  size(displayWidth, displayHeight);
+  initial_second = second();
+  initial_minute = minute();
+  city = loadImage("TimerCityScape2.png");
+  home = loadImage("HomeScreenLeafF.png");
+}
+
+
+
+void draw(){
+///**  
+  background(0);
+  if(currentScreen == 3){
+    //news
+    mainMenu = false;
+    textFont(font,30);
+    background(255,255,255);
+    fill(0);
+    for (int i = 0; i < numStories; i++){
+      textFont(boldFont,30);
+      text(titles[i] + "\n", 0, i*150,displayWidth, displayHeight);
+      textFont(font, 24);
+      text(descriptions[i] + "\n", 0, i*150+50,displayWidth, displayHeight);
+    }
+  }
+  if(currentScreen == 2){
+    background(255);
+    
+    image(city, 0, 0);
+  
+    waterRising(shower_time);
+    displayTime();
+  
+    if((time_elapsed/1000) < (shower_time - 1)*60){
+    water_color = #3BC3F2; //blue
+    }
+    else if((time_elapsed/1000) > (shower_time - 1)*60){
+      water_color = #FA2100; //red
+    }
+    
+    fill(water_color);
+    rect(0, height, width, -time_increment);
+  
+    fill(#000000);
+    textSize(32);
+    text(time, 270, 240);
+    
+    mainMenu = false;
+    //this may or may not work, figure out parameters for above
+    
+  }
+  if(currentScreen == 5){
+    //custom
+    mainMenu = false;
+    textFont(font,48);
+    background(255,255,255);
+    fill(0);
+    textAlign(CENTER);
+    text(allEvents, 0, 0,displayWidth, displayHeight);
+    displayTime();
+    textSize(32);
+    text(time, displayWidth-100, displayHeight-100);
+    
+    
+  }
+  if(currentScreen == 4){
+    //tasklist
+    mainMenu = false;
+    textFont(font,48);
+    background(255,255,255);
+    fill(0);
+    textAlign(CENTER);
+    text(allEvents, 0, 0,displayWidth, displayHeight);
+  }
+
+}
+
+void waterRising(float shower_time){
+  
+  increment = height/shower_time;
+  time_elapsed = millis();
+  time_increment = (time_elapsed*increment)/1000;
+  
+  }
+  
+void displayTime(){
+  
+  current_minute = floor(millis()/60000);
+  current_second = (millis()/1000) - current_minute*60;
+  time = (int)current_minute + ":" + (int)current_second;
+  
+}
+/**
+void keyPressed()
+{
+ //1-main menu, 2-timer, 3-news, 4-updates, 5- game
+  switch (key) {
+    case 'a':
+      currentScreen1();
+      break;
+    case 'b':
+      currentScreen = 2;
+      break; 
+    case 'c':
+      currentScreen = 3;
+      break; 
+    case 'd':
+      currentScreen = 4;
+      break;
+    case 'e':
+      currentScreen = 5;
+      break;     
+    default:  
+      break;
+  }
+}**/
+void serialEvent(Serial p) { 
+  inString = p.readString();
+ char c = inString.charAt(0); 
+  println(c);
+  switch (c) {
+    case 'A':
+      currentScreen1();
+//      println("hi1");
+      break;
+    case 'B':
+      currentScreen = 2;
+//      println("hi2");
+      break; 
+    case 'C':
+      currentScreen = 3;
+//      println("hi3");
+      break; 
+    case 'D':
+      currentScreen = 4;
+//      println("hi4");
+      break;
+    case 'E':
+      currentScreen = 5;
+//      println("hi5");
+      break;     
+    default:  
+      break;
+  }
+}
+
+void currentScreen1(){
+  currentScreen = 1;
+  if (mainMenu == false){
+    mainMenu = true;
+    image(home, 0, 0);
+  }else{
+    mainMenu = false;
+    background(0);
+  }
+}
