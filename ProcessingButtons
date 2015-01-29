@@ -106,10 +106,12 @@ void setup(){
 
 void draw(){
   if (myPort.read() == 'E') {
-    currentScreen = 1;
+    currentScreen1();
+
   }
   if (myPort.read() == 'A') {
     currentScreen = 3;
+    println("hi");
   }
   if (myPort.read() == 'B') {
     currentScreen = 2;
