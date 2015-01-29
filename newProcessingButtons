@@ -178,7 +178,7 @@ void waterRising(float shower_time){
   
   increment = height/shower_time;
   time_elapsed = millis();
-  time_increment = (time_elapsed*increment)/1000;
+  time_increment = (time_elapsed*increment)/60000;
   
   }
   
