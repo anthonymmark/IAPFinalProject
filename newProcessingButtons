@@ -215,11 +215,11 @@ void keyPressed()
 }**/
 void serialEvent(Serial p) { 
   inString = p.readString();
- char c = inString.charAt(0); 
+  char c = inString.charAt(0); 
   println(c);
   switch (c) {
     case 'A':
-      currentScreen1();
+      currentScreen = 4;
 //      println("hi1");
       break;
     case 'B':
@@ -231,11 +231,12 @@ void serialEvent(Serial p) {
 //      println("hi3");
       break; 
     case 'D':
-      currentScreen = 4;
+      currentScreen = 5;
 //      println("hi4");
       break;
     case 'E':
-      currentScreen = 5;
+      
+      currentScreen1();
 //      println("hi5");
       break;     
     default:  
