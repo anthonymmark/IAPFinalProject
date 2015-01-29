@@ -121,16 +121,10 @@ void draw(){
     currentScreen = 4;
   }
 
-  background(0);
-  if (currentScreen == 1) {
-    mainMenu = true;
-    //start in main menu
-    
-    image(home, 0, 0);
-  }
 
 
 ///**  
+  background(0);
   if(currentScreen == 3){
     //news
     mainMenu = false;
@@ -217,7 +211,7 @@ void keyPressed()
  //1-main menu, 2-timer, 3-news, 4-updates, 5- game
   switch (key) {
     case 'a':
-      currentScreen = 1;
+      currentScreen1();
       break;
     case 'b':
       currentScreen = 2;
@@ -235,3 +229,13 @@ void keyPressed()
       break;
   }
 }**/
+void currentScreen1(){
+  currentScreen = 1;
+  if (mainMenu == false){
+    mainMenu = true;
+    image(home, 0, 0);
+  }else{
+    mainMenu = false;
+    background(0);
+  }
+}
