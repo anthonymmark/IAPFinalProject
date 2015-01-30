@@ -3,6 +3,7 @@ boolean sketchFullScreen() {
 }
 String inString;
 int currentScreen; // 1-main menu, 2-timer, 3-news, 4-updates, 5- game
+int pastScreen;
 import processing.serial.*;
 Serial myPort;
 PFont font;
@@ -112,7 +113,8 @@ void setup(){
 void draw(){
 ///**  
 
-  if(currentScreen == 3){
+  if(currentScreen == 3 && pastScreen != 3){
+    pastScreen = currentScreen;
     background(255); 
     //news
     noStroke(); 
@@ -130,7 +132,8 @@ void draw(){
       text(descriptions[i] + "\n", 0, i*150+50,displayWidth, displayHeight);
     }
   }
-  if(currentScreen == 2){
+  if(currentScreen == 2 && pastScreen !=2){
+    pastScreen = currentScreen;
     background(255);
     
     image(city, 0, 0);
@@ -158,7 +161,8 @@ void draw(){
     //this may or may not work, figure out parameters for above
     
   }
-  if(currentScreen == 5){
+  if(currentScreen == 5 && pastScreen != 5){
+    pastScreen = currentScreen;
     //custom
     mainMenu = false;
     textFont(font,48);
@@ -173,7 +177,8 @@ void draw(){
     
     
   }
-  if(currentScreen == 4){
+  if(currentScreen == 4 && pastScreen != 4){
+    pastScreen = currentScreen;
     background(255); 
     //tasklist
     noStroke(); 
@@ -270,6 +275,7 @@ void serialEvent(Serial p) {
 
 void currentScreen1(){
   currentScreen = 1;
+  pastScreen = currentScreen;
   noStroke(); 
    rect(0, height, width, height); 
    fill(255); 
