@@ -160,7 +160,7 @@ void draw(){
   
     fill(#000000);
     textSize(32);
-    text(time, 270, 240);
+    text(time, 660, 240);
     
     mainMenu = false;
     //this may or may not work, figure out parameters for above
