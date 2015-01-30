@@ -138,7 +138,7 @@ void draw(){
       water_color = #FA2100; //red
     }
     
-    fill(water_color);
+    fill(water_color, 130);
     rect(0, height, width, -time_increment);
   
     textFont(font,48);
