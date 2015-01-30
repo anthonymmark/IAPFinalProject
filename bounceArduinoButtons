@@ -1,0 +1,85 @@
+//get package off of http://playground.arduino.cc/Code/Bounce
+#include <Bounce2.h>
+
+const int button1 = 2;     // the number of the pushbutton pin
+const int button2 = 4;
+const int button3 = 7;
+const int button4 = 8;
+const int button5 = 12;
+
+Bounce debouncer1 = Bounce(); 
+Bounce debouncer2 = Bounce(); 
+Bounce debouncer3 = Bounce(); 
+Bounce debouncer4 = Bounce(); 
+Bounce debouncer5 = Bounce(); 
+
+int button1State;
+int button2State;
+int button3State;
+int button4State;
+int button5State;
+
+//int lastButtonPressed = 0;
+//int nextToLastButtonPressed = 0;
+
+
+//long lastDebounceTime = 0;  // the last time the output pin was toggled
+//long debounceDelay = 50;    // the debounce time; increase if the output flickers
+
+void setup() {
+  Serial.begin(9600); 
+  pinMode(button1, INPUT);  
+  pinMode(button2, INPUT); 
+  pinMode(button3, INPUT); 
+  pinMode(button4, INPUT); 
+  pinMode(button5, INPUT); 
+  
+  debouncer1.attach(button1);
+  debouncer1.interval(5); // interval in ms
+  debouncer2.attach(button2);
+  debouncer2.interval(5); // interval in ms
+  debouncer3.attach(button3);
+  debouncer3.interval(5); // interval in ms
+  debouncer4.attach(button4);
+  debouncer4.interval(5); // interval in ms
+  debouncer5.attach(button5);
+  debouncer5.interval(5); // interval in ms
+}
+
+void loop(){
+  // read the state of the button1 value:
+  boolean changed1 = debouncer1.update();
+  boolean changed2 = debouncer2.update();
+  boolean changed3 = debouncer3.update();
+  boolean changed4 = debouncer4.update();
+  boolean changed5 = debouncer5.update();
+  
+  
+  
+  int button1state = debouncer1.read();
+  int button2state = debouncer2.read();
+  int button3state = debouncer3.read();
+  int button4state = debouncer4.read();
+  int button5state = debouncer5.read();
+
+  
+  if ( debouncer1.rose() ) {
+    Serial.println("A");
+  } 
+  if ( debouncer2.rose() ) {
+    Serial.println("B");
+  } 
+  if ( debouncer3.rose() ) {
+    Serial.println("C");
+  } 
+  if ( debouncer4.rose()) {
+    Serial.println("D");
+  }   
+  if ( debouncer5.rose()) {
+    Serial.println("E");
+  }   
+  
+
+}
+
+
