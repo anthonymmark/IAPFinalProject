@@ -32,6 +32,7 @@ int water_color;
 
 PImage city;
 PImage home;
+PImage mountains;
 
 IntList buttonPresses = new IntList();
 
@@ -100,6 +101,7 @@ void setup(){
   initial_minute = minute();
   city = loadImage("TimerCityScape2.png");
   home = loadImage("HomeScreenLeafF.png");
+  mountains = loadImage("BlueMountains.png");
 }
 
 
@@ -132,6 +134,7 @@ void draw(){
     mainMenu = false;
     textFont(font,30);
     background(255,255,255);
+    image(mountains, 0, 0);
     fill(0);
     for (int i = 0; i < numStories; i++){
       textFont(boldFont,30);
@@ -171,6 +174,7 @@ void draw(){
     mainMenu = false;
     textFont(font,48);
     background(255,255,255);
+    image(mountains, 0, 0);
     fill(0);
     textAlign(CENTER);
     text(allEvents, 0, 0,displayWidth, displayHeight);
@@ -185,6 +189,7 @@ void draw(){
     mainMenu = false;
     textFont(font,48);
     background(255,255,255);
+    image(mountains, 0, 0);
     fill(0);
     textAlign(CENTER);
     text(allEvents, 0, 0,displayWidth, displayHeight);
