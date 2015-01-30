@@ -141,9 +141,11 @@ void draw(){
     fill(water_color);
     rect(0, height, width, -time_increment);
   
+    textFont(font,48);
     fill(#000000);
-    textSize(32);
-    text(time, 270, 240);
+    textSize(88);
+    textAlign(CENTER);
+    text(time,0,displayWidth/5,displayWidth,displayHeight);
     
     mainMenu = false;
     //this may or may not work, figure out parameters for above
